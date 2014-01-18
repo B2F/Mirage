@@ -347,7 +347,8 @@ class Base:
 			('Next Subfolder 3', None, '', '<Shift>Page_Down', _('Next Subfolder'), self.goto_first_image_next_subfolder),
 			('OriginalSize', None, '', '1', _('1:1'), self.zoom_1_to_1_action),
 			('ZoomIn', None, '', 'KP_Add', _('Zoom In'), self.zoom_in),
-			('ZoomOut', None, '', 'KP_Subtract', _('Zoom Out'), self.zoom_out)
+			('ZoomOut', None, '', 'KP_Subtract', _('Zoom Out'), self.zoom_out),
+			('Toggle Menubar', None, 'Toggle Menubar', '<Ctrl>M', _('Toggle Menubar'), self.toggle_menubar)
 			)
 		toggle_actions = (
 			('Status Bar', None, _('_Status Bar'), None, _('Status Bar'), self.toggle_status_bar, self.usettings['statusbar_show']),
@@ -372,12 +373,14 @@ class Base:
 			    <menuitem action="In"/>
 			    <menuitem action="1:1"/>
 			    <menuitem action="Fit"/>
-			    <separator name="FM4"/>
+			    <separator name="FM2"/>
 			    <menuitem action="Start Slideshow"/>
 			    <menuitem action="Stop Slideshow"/>
 			    <separator name="FM3"/>
 			    <menuitem action="Exit Full Screen"/>
 			    <menuitem action="Full Screen"/>
+			    <separator name="FM4"/>
+			    <menuitem action="Toggle Menubar"/>
 			  </popup>
 			  <menubar name="MainMenu">
 			    <menu action="FileMenu">
@@ -1978,6 +1981,12 @@ class Base:
 				self.zoom_to_fit_or_1_to_1(None, False, False)
 			else:
 				self.zoom_to_fit_window(None, False, False)
+
+	def toggle_menubar(self, action):
+		if self.menubar.get_property('visible'):
+			self.menubar.hide()
+		else:
+			self.menubar.show()
 
 	def toggle_thumbpane(self, action):
 		if self.thumbscroll.get_property('visible'):
